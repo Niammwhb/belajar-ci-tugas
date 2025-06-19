@@ -89,7 +89,7 @@ vendor/
 #-------------------------
 # IDE / Development Files
 #-------------------------
-
+    
 # Modules Testing
 _modules/*
 
