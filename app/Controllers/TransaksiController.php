@@ -84,6 +84,7 @@ class TransaksiController extends BaseController
 
 public function getLocation()
 {
+    // dd(env('COST_KEY'));
 		//keyword pencarian yang dikirimkan dari halaman checkout
     $search = $this->request->getGet('search');
 
