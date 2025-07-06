@@ -11,38 +11,43 @@
         </li><!-- End Home Nav -->
 
         <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "" : "collapsed" ?>" href="keranjang">
-                <i class="bi bi-cart-check"></i>
-                <span>Keranjang</span>
-            </a>
+           <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "" : "collapsed" ?>" href="<?= base_url('keranjang') ?>">
+    <i class="bi bi-cart-check"></i>
+    <span>Keranjang</span>
+</a>
+
         </li><!-- End Keranjang Nav --> 
         
         <?php
         if (session()->get('role') == 'admin') {
         ?>
             <li class="nav-item">
-                <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="produk">
-                    <i class="bi bi-receipt"></i>
-                    <span>Produk</span>
-                </a>
+                <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="<?= base_url('produk') ?>">
+    <i class="bi bi-receipt"></i>
+    <span>Produk</span>
+</a>
+
             </li><!-- End Produk Nav -->
         <?php
         }
         ?>
 
-        <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == 'productcategory') ? "" : "collapsed" ?>"
-                href="productcategory">
-                <i class="bi bi-grid-1x2-fill"></i>
-                <span>Kategori Produk</span>
-            </a>
-        </li><!-- End KategoriProduct Nav -->
+        <?php if (session()->get('role') === 'admin') : ?>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="<?= base_url('diskon') ?>">
+      <i class="bi bi-percent"></i>
+      <span>Diskon</span>
+    </a>
+  </li>
+<?php endif; ?>
+
+
 
         <li class="nav-item">
-    <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="profile">
-        <i class="bi bi-person"></i>
-        <span>Profile</span>
-    </a>
+    <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="<?= base_url('profile') ?>">
+    <i class="bi bi-person"></i>
+    <span>Profile</span>
+</a>
 </li><!-- End Profile Nav -->
 
 

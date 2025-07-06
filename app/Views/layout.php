@@ -48,9 +48,11 @@ if(uri_string()!=""){
 
 <?= $this->include('components/header') ?>
 
-  <?= $this->include('components/sidebar') ?>
 
-  <main id="main" class="main">
+<?= $this->include('components/sidebar') ?>
+
+
+<main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Data Tables</h1>

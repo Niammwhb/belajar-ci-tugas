@@ -35,12 +35,23 @@ class TransaksiController extends BaseController
 
     public function cart_add()
     {
+            $harga_awal = $this->request->getPost('harga');
+
+        // Ambil diskon dari session
+        $diskon = session()->get('diskon_nominal') ?? 0;
+
+        // Hitung harga setelah diskon, minimal 0
+        $harga_setelah_diskon = max($harga_awal - $diskon, 0);
         $this->cart->insert(array(
             'id'        => $this->request->getPost('id'),
             'qty'       => 1,
             'price'     => $this->request->getPost('harga'),
             'name'      => $this->request->getPost('nama'),
-            'options'   => array('foto' => $this->request->getPost('foto'))
+            'options'   => array(
+                'foto' => $this->request->getPost('foto'),
+                'harga_awal' => $harga_awal,
+                'diskon' => $diskon
+                )
         ));
         session()->setflashdata('success', 'Produk berhasil ditambahkan ke keranjang. (<a href="' . base_url() . 'keranjang">Lihat</a>)');
         return redirect()->to(base_url('/'));
@@ -73,14 +84,26 @@ class TransaksiController extends BaseController
         session()->setflashdata('success', 'Keranjang Berhasil Dihapus');
         return redirect()->to(base_url('keranjang'));
     }
-
-    public function checkout()
+    
+public function checkout()
 {
-    $data['items'] = $this->cart->contents();
-    $data['total'] = $this->cart->total();
+    // Ambil diskon dari session
+    $diskonNominal = session()->get('diskon_nominal') ?? 0;
 
+    // Hitung total harga
+    $totalHarga = $this->cart->total() - $diskonNominal;
+
+    // Simpan transaksi ke database
+    // ...
+    $data = [
+        'items' => $this->cart->contents(),
+        'total' => $this->cart->total(),
+        'diskon' => $diskonNominal,
+        'total_harga' => $totalHarga
+    ];
     return view('v_checkout', $data);
 }
+
 
 public function getLocation()
 {
@@ -101,6 +124,8 @@ public function getLocation()
     $body = json_decode($response->getBody(), true); 
     return $this->response->setJSON($body['data']);
 }
+
+
 
 public function getCost()
 { 
@@ -159,12 +184,15 @@ public function buy()
         $last_insert_id = $this->transaction->getInsertID();
 
         foreach ($this->cart->contents() as $value) {
+            $harga_awal = $value['options']['harga_awal'] ?? $value['price']; // fallback
+            $diskon_produk = $value['options']['diskon'] ?? 0;
+            $harga_setelah_diskon = max($harga_awal - $diskon_produk, 0);
             $dataFormDetail = [
                 'transaction_id' => $last_insert_id,
                 'product_id' => $value['id'],
                 'jumlah' => $value['qty'],
-                'diskon' => 0,
-                'subtotal_harga' => $value['qty'] * $value['price'],
+                'diskon' => $diskon_produk,
+                'subtotal_harga' => $value['qty'] * $harga_setelah_diskon,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ];
