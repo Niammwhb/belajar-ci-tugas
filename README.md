@@ -1,68 +1,95 @@
-# CodeIgniter 4 Application Starter
+# Toko Online CodeIgniter 4
 
-## What is CodeIgniter?
+Proyek ini adalah platform toko online berbasis web yang dibangun menggunakan framework _CodeIgniter 4, dilengkapi dengan integrasi \*\*NiceAdmin template_ untuk tampilan UI yang profesional dan responsif. Sistem mendukung fungsi e-commerce dasar seperti katalog produk, keranjang belanja, checkout dengan ongkos kirim otomatis (API RajaOngkir), serta manajemen produk melalui panel admin.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Daftar Isi
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+- [Fitur](#fitur)
+- [Persyaratan Sistem](#persyaratan-sistem)
+- [Instalasi](#instalasi)
+- [Struktur Proyek](#struktur-proyek)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Installation & updates
+## Fitur
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### 🎯 Katalog Produk
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- Menampilkan daftar produk lengkap dengan:
+  - Gambar
+  - Nama produk
+  - Harga asli dan harga setelah diskon (jika tersedia)
+- Fitur pencarian nama produk
+- Kategori produk untuk memfilter berdasarkan jenis
+- Detail produk individual
 
-## Setup
+### 🛒 Keranjang Belanja
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+- Tambahkan produk ke keranjang dari katalog
+- Simpan dan tampilkan:
+  - Foto produk
+  - Harga asli
+  - Diskon aktif (berbasis tanggal)
+  - Harga setelah diskon
+  - Jumlah item yang bisa disesuaikan
+- Edit atau hapus item di keranjang
+- Informasi subtotal dan total harga
 
-## Important Change with index.php
+### 💳 Sistem Checkout dan Transaksi
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+- Halaman checkout dengan isian:
+  - Nama pengguna (otomatis dari sesi login)
+  - Alamat lengkap
+  - Kelurahan tujuan (menggunakan Select2 + API RajaOngkir)
+  - Pilih layanan ekspedisi dan estimasi ongkir
+- Hitung total transaksi secara dinamis (harga + ongkir)
+- Simpan data transaksi ke database
+- Simpan detail produk yang dibeli (termasuk qty, diskon, subtotal)
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### 📦 Riwayat Transaksi
 
-**Please** read the user guide for a better explanation of how CI4 works!
+- Menampilkan semua transaksi pengguna (fitur tambahan)
 
-## Repository Management
+### ⚙ Panel Admin
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- Login khusus untuk admin
+- Manajemen Produk:
+  - CRUD produk dengan gambar, harga, dan kategori
+- Manajemen Diskon:
+  - Tambah diskon harian berbasis tanggal
+- Manajemen Kategori:
+  - Tambah/hapus/edit kategori produk
+- Laporan Transaksi:
+  - Tampilkan semua transaksi yang masuk
+  - Filter laporan dan _export ke PDF_
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### 🔐 Sistem Autentikasi
 
-## Server Requirements
+- Login dan Register pengguna
+- Hak akses berdasarkan peran (user dan admin)
+- Logout dan session manajemen
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+### 💅 Tampilan Responsif
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- Menggunakan [NiceAdmin Bootstrap Template](https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/) yang modern dan mobile-friendly
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+---
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+## Persyaratan Sistem
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+- PHP >= 8.2
+- Composer
+- Web server (XAMPP atau Laravel Valet)
+- MySQL / MariaDB
+- Koneksi Internet (untuk akses API RajaOngkir)
+
+---
+
+## Instalasi
+
+1. _Clone repository ini_
+   bash
+   git clone [URL repository]
+   cd belajar-ci-tugas

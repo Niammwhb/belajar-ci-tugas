@@ -1,7 +1,4 @@
 
-
-
-
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -15,7 +12,7 @@
 
 <!-- diskon -->
 <!-- Container untuk Search dan Diskon -->
-  <div class="d-flex align-items-center mx-auto px-4">
+  <div class="d-flex align-items-center mx-auto px-2">
       
       <!-- Search Bar -->
       <div class="search-bar">
@@ -28,10 +25,10 @@
       <!-- Pesan Diskon -->
       <?php if (session()->has('diskon_nominal') && session('diskon_nominal') > 0): ?>
           <!-- Diletakkan di samping search bar dengan margin kiri (ms-3) -->
-          <div class="ms-3">
+          <div class="ms-9">
               <!-- Menggunakan styling yang lebih rapi dan tidak memakan lebar penuh -->
-              <div class="alert alert-success fw-bold py-2 px-3 mb-0 d-none d-md-flex align-items-center" style="white-space: nowrap;">
-                  <i class="bi bi-tags-fill me-2"></i>
+              <div class="alert alert-success  py-1 px-1 mb-0 d-none d-md-flex align-items-center" style="white-space: nowrap;">
+                  <i class="bi bi-tags-fill me-1"></i>
                   <span>Hari ini ada diskon <?= number_format(session('diskon_nominal')) ?>!</span>
               </div>
           </div>
